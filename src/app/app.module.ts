@@ -12,10 +12,23 @@ import { ProdutosFavoritosModule } from './pages/produtos-favoritos/produtos-fav
 import { ProdutosPromocaoModule } from './pages/produtos-promocao/produtos-promocao.module';
 import { ProdutosTodosModule } from './pages/produtos-todos/produtos-todos.module';
 
+import { StoreModule } from '@ngrx/store';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MyCounterComponent } from './my-counter/my-counter.component';
+import { taskReducer } from './reducers/store/task-reducer';
+import { TasksStoreService } from './services/tasks-store.service';
+import { EffectsModule } from '@ngrx/effects';
+import { TaskEffects } from './reducers/store/task.effects';
+import { counterReducer } from './counter.reducer';
+
+
+
 registerLocaleData(localePt);
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MyCounterComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,10 +38,18 @@ registerLocaleData(localePt);
     ProdutosExclusivosModule,
     ProdutosFavoritosModule,
     ProdutosPromocaoModule,
-    ProdutosTodosModule
+    ProdutosTodosModule,
+
+    StoreModule.forRoot({ produtos: taskReducer, count: counterReducer }),
+    // StoreModule.forRoot({ count: counterReducer }),
+    // StoreModule.forRoot({ count: counterReducer }),
+    StoreDevtoolsModule.instrument(),
+
+    EffectsModule.forRoot([TaskEffects]),
   ],
   providers: [
     AppService,
+    TasksStoreService,
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'
