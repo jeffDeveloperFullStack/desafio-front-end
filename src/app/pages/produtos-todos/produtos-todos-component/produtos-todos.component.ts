@@ -24,18 +24,18 @@ export class ProdutosTodosComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.filter = new FormControl('');
-    // this.appService.getProdutos().subscribe(
-    //   response => {
-    //     this.produtos$ = of(response.produtos);
-    //     this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-    //     this.filteredProdutos$ = combineLatest(this.produtos$, this.filter$).pipe(
-    //       map(
-    //         ([produtos, filterString]) => produtos.filter(produto => produto.nome.indexOf(filterString) !== -1)
-    //       )
-    //     );
-    //   }
-    // );
+    this.filter = new FormControl('');
+    this.appService.getProdutos().subscribe(
+      response => {
+        this.produtos$ = of(response.produtos);
+        this.filter$ = this.filter.valueChanges.pipe(startWith(''));
+        this.filteredProdutos$ = combineLatest(this.produtos$, this.filter$).pipe(
+          map(
+            ([produtos, filterString]) => produtos.filter(produto => produto.nome.indexOf(filterString) !== -1)
+          )
+        );
+      }
+    );
   }
 
   public onFavorito(id, checked) {
