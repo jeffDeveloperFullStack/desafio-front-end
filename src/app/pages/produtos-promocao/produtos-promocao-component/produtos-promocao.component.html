@@ -1,0 +1,31 @@
+<div class="produtos">
+  <section class="content">
+    <div class="content-header">
+      <h1><strong>Empresa XPTO</strong> - Conheça nossas promoções
+        <span>Listagem de produtos em promoção - clique no produto desejado para saber mais</span></h1>
+      <input type="search" [formControl]="filter" placeholder="Buscar" class="busca">
+    </div>
+
+    <div class="content-body">
+      <div *ngFor="let produto of filteredProdutos$ | async" class="card">
+        <div class="image">
+
+          <img class="img-produto" [src]="produto.imagem">
+
+          <span [className]="(produto.promocao ? 'label' : (produto.exclusivo ? 'label-exclusivo' : 'label'))"
+            class="label">{{ (produto.promocao ? 'Promoção' : (produto.exclusivo ? 'Exclusivo' : '')) }}</span>
+        </div>
+        <div class="flex-divider">
+          <p class="price">{{ produto.valor | currency:'R$' }}</p>
+          <div class="favorite">
+            <input #checkbox (change)="onFavorito(produto.id, checkbox.checked);" type='checkbox'
+              [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label [for]="'thing-' + produto.id">tornar
+              favorito</label>
+          </div>
+        </div>
+        <h2>{{ produto.nome }}</h2>
+        <p>{{ produto.decricaoCurta }}</p>
+      </div>
+    </div>
+  </section>
+</div>
