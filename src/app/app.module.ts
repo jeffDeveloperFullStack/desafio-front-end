@@ -16,11 +16,12 @@ import { StoreModule } from '@ngrx/store';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MyCounterComponent } from './my-counter/my-counter.component';
-import { taskReducer } from './reducers/store/task-reducer';
-import { TasksStoreService } from './services/tasks-store.service';
+import { produtoReducer } from './reducers/store/produto-reducer';
+import { ProdutoStoreService } from './services/produto-store.service';
 import { EffectsModule } from '@ngrx/effects';
-import { TaskEffects } from './reducers/store/task.effects';
+import { ProdutoEffects } from './reducers/store/produto.effects';
 import { counterReducer } from './counter.reducer';
+import { filterReducer } from './reducers/filter-reducer';
 
 
 
@@ -40,16 +41,14 @@ registerLocaleData(localePt);
     ProdutosPromocaoModule,
     ProdutosTodosModule,
 
-    StoreModule.forRoot({ produtos: taskReducer, count: counterReducer }),
-    // StoreModule.forRoot({ count: counterReducer }),
-    // StoreModule.forRoot({ count: counterReducer }),
+    StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer, count: counterReducer }),
     StoreDevtoolsModule.instrument(),
 
-    EffectsModule.forRoot([TaskEffects]),
+    EffectsModule.forRoot([ProdutoEffects]),
   ],
   providers: [
     AppService,
-    TasksStoreService,
+    ProdutoStoreService,
     {
       provide: LOCALE_ID,
       useValue: 'pt-BR'

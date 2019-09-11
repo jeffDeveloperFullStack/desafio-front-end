@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { ProdutosFavoritosComponent } from './produtos-favoritos-component/produtos-exclusivos.component';
+import { ProdutosFavoritosComponent } from './produtos-favoritos-component/produtos-favorito.component';
 
 const routes: Routes = [
   {

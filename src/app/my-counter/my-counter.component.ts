@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { increment, decrement, reset } from '../counter.actions';
-import { TasksStoreService } from '../services/tasks-store.service';
+import { ProdutoStoreService } from '../services/produto-store.service';
 
 @Component({
   selector: 'app-my-counter',
@@ -12,18 +12,21 @@ export class MyCounterComponent implements OnInit {
   count$: Observable<number>;
 
   tasks$: Observable<any[]>;
+  produtos$: Observable<any[]>;
 
   constructor(
-    private taskStoreService: TasksStoreService,
+    private produtoStoreService: ProdutoStoreService,
     private store: Store<{ count: number }>
   ) {
-    this.tasks$ = this.taskStoreService.tasks$;
-    this.tasks$.subscribe(
-      response => {
-        console.log('response', response);
-      }
-    );
+    // this.tasks$ = this.produtoStoreService.tasks$;
+    // this.tasks$.subscribe(
+    //   response => {
+    //     console.log('response', response);
+    //   }
+    // );
     this.count$ = store.pipe(select('count'));
+
+    // this.produtos$ = this.produtoStoreService.loadProdutosExclusivos();
   }
 
   ngOnInit() {

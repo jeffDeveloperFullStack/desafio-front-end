@@ -3,8 +3,12 @@
     <div class="content-header">
       <h1><strong>Empresa XPTO</strong> - Conheça nossos produtos exclusivos
         <span>Listagem de produtos exclusivos - clique no produto desejado para saber mais</span></h1>
-      <input type="search" [formControl]="filter" placeholder="Buscar" class="busca">
+      <input #search type="search" (input)="searchInputChange$.next(search.value)" [value]="contents$ | async"
+        [formControl]="filter" placeholder="Buscar" class="busca">
     </div>
+
+    <div>Current Count: {{ contents$ | async }}</div>
+
 
     <div class="content-body">
       <div *ngFor="let produto of filteredProdutos$ | async" class="card">

@@ -16,4 +16,9 @@ export class AppService {
   public loadProdutos(): Observable<any> {
     return this.http.get(`${this.endpoint}`);
   }
+
+
+  public loadProdutosExclusivos(): Observable<any> {
+    return this.http.get(`${this.endpoint}`);
+  }
 }
