@@ -1,4 +1,77 @@
 <div class="produtos">
-  <h3>Detalhes do produto</h3>
-  {{ produto | json  }}
+
+  <section *ngFor="let produto of produtos" class="content">
+    <div class="content-header">
+      <h1> {{ produto.nome }}
+        <div class="flex-divider">
+          <p class="price">{{ produto.valor | currency:'R$' }}</p>
+          <div class="favorite">
+            <input #checkbox [checked]="produto.favorito" (change)="onFavorito(produto.id, checkbox.checked);"
+              type='checkbox' [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label
+              [for]="'thing-' + produto.id">tornar
+              favorito</label>
+          </div>
+        </div>
+        <span>{{ produto.decricaoCurta }}</span></h1>
+
+      <a (click)="goBack()"><span class="voltar"></span></a>
+      <input type="search" placeholder="Buscar" class="busca">
+
+    </div>
+
+    <div class="content-body">
+      <div class="row">
+        <div class="col">
+          <div class="image destaque">
+            <img class="img-produto-detalhe" [src]="produto.imagem">
+
+            <span
+              [className]="(produto.promocao ? 'label' : (produto.exclusivo ? 'label-exclusivo' : 'label'))">{{ (produto.promocao ? 'Promoção' : (produto.exclusivo ? 'Exclusivo' : '')) }}</span>
+
+          </div>
+        </div>
+        <div class="col">
+          <h3>Detalhes do Produto</h3>
+          <p>{{ produto.descricaoLonga }}</p>
+
+        </div>
+      </div>
+      <h3 class="border">Ficha Técnica</h3>
+      <div class="row">
+        <div class="col">
+          <ul>
+            <li *ngFor="let fichaTecnica of produto.fichaTecnica">{{ fichaTecnica.titulo }} :
+              <strong>{{ fichaTecnica.descricao }} </strong>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="col">
+          <ul>
+            <li>Lorem ipsum: dolor sit amet, consectetur adipiscing elit;</li>
+            <li>Lorem ipsum: Sed do eiusmod tempor incididunt ut labore et dolore;</li>
+            <li>Lorem ipsum: Magna aliqua. Ut enim ad minim veniam;</li>
+            <li>Lorem ipsum: Ullamco laboris nisi ut aliquip ex ea commodo consequat;</li>
+            <li>Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit;</li>
+            <li>Lorem ipsum: Sed do eiusmod tempor incididunt ut labore et dolore;</li>
+            <li>Lorem ipsum: Magna aliqua. Ut enim ad minim veniam;</li>
+            <li>Lorem ipsum: Ullamco laboris nisi ut aliquip ex ea commodo;</li>
+            <li>Lorem ipsum: Duis aute irure dolor in reprehenderit in esse cillum;</li>
+          </ul>
+        </div>
+        <div class="col">
+          <ul>
+            <li>Lorem ipsum: dolor sit amet, consectetur adipiscing elit;</li>
+            <li>Lorem ipsum: Sed do eiusmod tempor incididunt ut labore et dolore;</li>
+            <li>Lorem ipsum: Magna aliqua. Ut enim ad minim veniam;</li>
+            <li>Lorem ipsum: Ullamco laboris nisi ut aliquip ex ea commodo consequat;</li>
+            <li>Lorem ipsum: Lorem ipsum dolor sit amet, consectetur adipiscing elit;</li>
+            <li>Lorem ipsum: Sed do eiusmod tempor incididunt ut labore et dolore;</li>
+            <li>Lorem ipsum: Magna aliqua. Ut enim ad minim veniam;</li>
+            <li>Lorem ipsum: Ullamco laboris nisi ut aliquip ex ea commodo;</li>
+            <li>Lorem ipsum: Duis aute irure dolor in reprehenderit in esse cillum;</li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </section>
 </div>

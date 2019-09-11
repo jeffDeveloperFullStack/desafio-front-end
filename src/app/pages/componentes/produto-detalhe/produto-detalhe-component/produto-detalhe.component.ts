@@ -1,13 +1,12 @@
 import { OnInit, Component } from '@angular/core';
-import { AppService } from 'src/app/app.service';
 import { map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, combineLatest } from 'rxjs';
 import { Location } from '@angular/common';
-import { ProdutoStoreService } from 'src/app/services/produto-store.service';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
+import * as actions from '../../../../reducers/store/produto-actions';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -18,8 +17,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ProdutoDetalheComponent implements OnInit {
 
   public filter: FormControl;
-  public produto: any;
+  public produtos: any = [];
   public inscricao: Subscription;
+  public filteredProdutos$: Observable<any>;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -31,17 +32,38 @@ export class ProdutoDetalheComponent implements OnInit {
     this.filter = new FormControl('');
     this.inscricao = this.route.params.subscribe((params: any) => {
       if (params) {
-        console.log(params.id);
         this.store.pipe(select('produtos')).pipe(
           // tslint:disable-next-line: triple-equals
           map(data => data.filter(produto => produto.id == params.id))
         ).subscribe(
-          response => {
-            this.produto = response;
-            console.log(response);
+          (response: any) => {
+            if (response.length > 0) {
+              this.produtos = response;
+              this.filteredProdutos$ = of(response);
+            }
           }
         );
       }
     });
+  }
+
+  public onFavorito(id, checked) {
+    this.filteredProdutos$.pipe(map(response => {
+      return response.filter(produto => {
+        if (produto.id === id) {
+          produto.favorito = checked;
+        }
+        return produto;
+      });
+    })
+    ).subscribe(
+      response => {
+        return new actions.LoadProdutoCompletedAction({ produtos: response });
+      }
+    );
+  }
+
+  public goBack() {
+    this.location.back();
   }
 }
