@@ -82,6 +82,7 @@ export class ProdutosFavoritosComponent implements OnInit {
     })
     ).subscribe(
       response => {
+        this.ngOnInit();
         return new actions.LoadProdutoCompletedAction({ produtos: response });
       }
     );
