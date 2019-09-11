@@ -8,7 +8,8 @@
     </div>
     <div class="favorite">
       <input #infinitaPag [checked]="boolscroll" (change)="boolscroll = !boolscroll" type="checkbox"
-        name="thing-paginacao" id="thing-paginacao" /><label for="thing-paginacao">Paginação infinita</label>
+        name="thing-paginacao" id="thing-paginacao" /><label class="paginacao" for="thing-paginacao">Paginação
+        infinita</label>
     </div>
 
     <div class="content-body" infiniteScroll [infiniteScrollDistance]="1.5" [infiniteScrollThrottle]="50"
