@@ -44,36 +44,11 @@ export class ProdutoEffects {
       catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
     );
 
-  // @Effect() load$ = this.actions$
-  //   .pipe(
-  //     ofType(taskActions.ActionTypes.SEARCH),
-  //     mergeMap(() => {
-  //       return this.api.loadProdutos()
-  //         .pipe(
-  //           map((res: any) => {
-  //             // console.log('contents', res.produtos);
-  //             return new taskActions.LoadActionSuccess({ filter: res.produtos });
-  //           }),
-  //           catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
-  //         );
-  //     })
-  //   );
-
   @Effect() load$ = this.actions$
     .pipe(
       ofType(taskActions.ActionTypes.SEARCH),
       map(action => action),
-      map(action => new taskActions.LoadActionSuccess({ filter: action })),
-      // mergeMap(() => {
-      //   return this.api.loadProdutos()
-      //     .pipe(
-      //       map((res: any) => {
-      //         // console.log('contents', res.produtos);
-      //         return new taskActions.LoadActionSuccess({ filter: res.produtos });
-      //       }),
-      //       catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
-      //     );
-      // })
+      map(action => new taskActions.LoadActionSuccess({ filter: action }))
     );
 
 }

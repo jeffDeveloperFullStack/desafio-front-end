@@ -1,12 +1,13 @@
 import { OnInit, Component } from '@angular/core';
 import { AppService } from 'src/app/app.service';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Observable, combineLatest, of, Subject } from 'rxjs';
 
 import { ProdutoStoreService } from 'src/app/services/produto-store.service';
 import { Store, select } from '@ngrx/store';
 import * as actions from '../../../reducers/store/produto-actions';
+
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -21,11 +22,8 @@ export class ProdutosExclusivosComponent implements OnInit {
   public produtos$: Observable<any>;
   public filteredProdutos$: Observable<any>;
 
-  produtosExclusivos$: Observable<any[]>;
-
-
-  searchInputChange$ = new Subject<any>();
-  contents$: Observable<string>;
+  public searchInputChange$ = new Subject<any>();
+  public contents$: Observable<string>;
 
   constructor(
     private appService: AppService,
@@ -33,7 +31,10 @@ export class ProdutosExclusivosComponent implements OnInit {
     private store: Store<any>
   ) {
     this.searchInputChange$
-      .pipe(switchMap((text: string) => of(text)))
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((text: string) => of(text)))
       .subscribe((text: string) => {
         this.store.dispatch(new actions.SearchAction(text));
       });
@@ -42,24 +43,6 @@ export class ProdutosExclusivosComponent implements OnInit {
 
   ngOnInit() {
     this.filter = new FormControl('');
-
-    // this.produtos$ = this.store.pipe(select('produtos')).pipe(map(
-    //   data => data.filter(produto => produto.exclusivo === true)
-    // ));
-
-    // this.produtos$.subscribe(
-    //   response => {
-    //     // this.produtosExclusivos$ = of(response);
-    //     // this.filter$ = this.filter.valueChanges.pipe(startWith(''));
-    //     // this.filteredProdutos$ = combineLatest(this.produtos$, this.filter$).pipe(
-    //     //   map(
-    //     //     // tslint:disable-next-line: max-line-length
-    //     //     ([produtos, filterString]) => produtos.filter(produto => produto.nome.toLowerCase().indexOf(filterString.toLowerCase()) !== -1)
-    //     //   )
-    //     // );
-    //   }
-    // );
-    // this.produtosExclusivos$ = this.store.pipe(select('produtos'));
     this.store.pipe(select('produtos')).pipe(
       map(
         data => data.filter(produto => produto.exclusivo === true)
@@ -81,7 +64,18 @@ export class ProdutosExclusivosComponent implements OnInit {
   }
 
   public onFavorito(id, checked) {
-    console.log(id);
-    console.log(checked);
+    this.filteredProdutos$.pipe(map(response => {
+      return response.filter(produto => {
+        if (produto.id === id) {
+          produto.favorito = checked;
+        }
+        return produto;
+      });
+    })
+    ).subscribe(
+      response => {
+        return new actions.LoadProdutoCompletedAction({ produtos: response });
+      }
+    );
   }
 }

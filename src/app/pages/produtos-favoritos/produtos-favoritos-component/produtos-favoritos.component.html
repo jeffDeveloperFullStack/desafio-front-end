@@ -3,7 +3,8 @@
     <div class="content-header">
       <h1><strong>Empresa XPTO</strong> - Meus Favoritos
         <span>Listagem de produtos marcados como favoritos - clique no produto desejado para saber mais</span></h1>
-      <input type="search" [formControl]="filter" placeholder="Buscar" class="busca">
+      <input #search type="search" (input)="searchInputChange$.next(search.value)" [value]="contents$ | async"
+        [formControl]="filter" placeholder="Buscar" class="busca">
     </div>
 
     <div class="content-body">
@@ -19,8 +20,9 @@
         <div class="flex-divider">
           <p class="price">{{ produto.valor | currency:'R$' }}</p>
           <div class="favorite">
-            <input #checkbox (change)="onFavorito(produto.id, checkbox.checked);" type='checkbox'
-              [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label [for]="'thing-' + produto.id">tornar
+            <input #checkbox [checked]="produto.favorito" (change)="onFavorito(produto.id, checkbox.checked);"
+              type='checkbox' [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label
+              [for]="'thing-' + produto.id">tornar
               favorito</label>
           </div>
         </div>

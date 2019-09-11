@@ -20,8 +20,9 @@
         <div class="flex-divider">
           <p class="price">{{ produto.valor | currency:'R$' }}</p>
           <div class="favorite">
-            <input #checkbox (change)="onFavorito(produto.id, checkbox.checked);" type='checkbox'
-              [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label [for]="'thing-' + produto.id">tornar
+            <input #checkbox [checked]="produto.favorito" (change)="onFavorito(produto.id, checkbox.checked);"
+              type='checkbox' [name]="'thing-' + produto.id" [id]="'thing-' + produto.id" /><label
+              [for]="'thing-' + produto.id">tornar
               favorito</label>
           </div>
         </div>
