@@ -5,6 +5,7 @@ import { combineLatest, Observable, of, Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import * as actions from '../../../reducers/store/produto-actions';
+import { ProdutoStoreService } from 'src/app/services/produto-store.service';
 
 
 @Component({
@@ -22,10 +23,12 @@ export class ProdutosTodosComponent implements OnInit {
 
   public searchInputChange$ = new Subject<any>();
   public contents$: Observable<string>;
+  public boolscroll = false;
 
   constructor(
     private appService: AppService,
-    private store: Store<any>
+    private store: Store<any>,
+    private produtoStoreService: ProdutoStoreService,
   ) {
     this.searchInputChange$
       .pipe(
@@ -79,5 +82,9 @@ export class ProdutosTodosComponent implements OnInit {
         return new actions.LoadProdutoCompletedAction({ produtos: response });
       }
     );
+  }
+
+  onScroll() {
+    this.produtoStoreService.loadProdutos();
   }
 }

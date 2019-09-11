@@ -6,6 +6,7 @@ import { startWith, map, debounceTime, distinctUntilChanged, switchMap } from 'r
 import { Store, select } from '@ngrx/store';
 
 import * as actions from '../../../reducers/store/produto-actions';
+import { ProdutoStoreService } from 'src/app/services/produto-store.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -20,10 +21,13 @@ export class ProdutosFavoritosComponent implements OnInit {
   public produtos$: Observable<any>;
   public filteredProdutos$: Observable<any>;
 
+  public boolscroll = false;
+
   public searchInputChange$ = new Subject<any>();
   public contents$: Observable<string>;
 
   constructor(
+    private produtoStoreService: ProdutoStoreService,
     private appService: AppService,
     private store: Store<any>
   ) {
@@ -81,5 +85,9 @@ export class ProdutosFavoritosComponent implements OnInit {
         return new actions.LoadProdutoCompletedAction({ produtos: response });
       }
     );
+  }
+
+  onScroll() {
+    this.produtoStoreService.loadProdutos();
   }
 }

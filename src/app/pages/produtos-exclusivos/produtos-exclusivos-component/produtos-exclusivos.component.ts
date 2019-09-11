@@ -22,6 +22,8 @@ export class ProdutosExclusivosComponent implements OnInit {
   public produtos$: Observable<any>;
   public filteredProdutos$: Observable<any>;
 
+  public boolscroll = false;
+
   public searchInputChange$ = new Subject<any>();
   public contents$: Observable<string>;
 
@@ -84,5 +86,9 @@ export class ProdutosExclusivosComponent implements OnInit {
         return new actions.LoadProdutoCompletedAction({ produtos: response });
       }
     );
+  }
+
+  onScroll() {
+    this.produtoStoreService.loadProdutos();
   }
 }

@@ -4,13 +4,19 @@
       <h1><strong>Empresa XPTO</strong> - Meus Favoritos
         <span>Listagem de produtos marcados como favoritos - clique no produto desejado para saber mais</span></h1>
       <input #search type="search" (input)="searchInputChange$.next(search.value)" [value]="contents$ | async"
-        [formControl]="filter" placeholder="Buscar" class="busca">
+        [formControl]="filter" placeholder="Buscar por nome ou descrição" class="busca">
     </div>
 
-    <div class="content-body">
+    <div class="favorite">
+      <input #infinitaPag [checked]="boolscroll" (change)="boolscroll = !boolscroll" type="checkbox"
+        name="thing-paginacao" id="thing-paginacao" /><label for="thing-paginacao">Paginação infinita</label>
+    </div>
+
+    <div class="content-body" infiniteScroll [infiniteScrollDistance]="1.5" [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()" [infiniteScrollDisabled]="!boolscroll">
+
       <div *ngFor="let produto of filteredProdutos$ | async" class="card">
         <div class="image">
-          <!-- <img src="assets/img/NoPath.png"> -->
 
           <img class="img-produto" [src]="produto.imagem">
 
@@ -30,5 +36,10 @@
         <p>{{ produto.decricaoCurta }}</p>
       </div>
     </div>
+
+    <div *ngIf="filteredProdutos$ | async as produtos">
+      <p *ngIf="produtos.length == 0"> Nenhuma Produto Encontrado.</p>
+    </div>
+
   </section>
 </div>

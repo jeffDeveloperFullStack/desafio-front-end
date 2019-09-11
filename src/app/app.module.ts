@@ -15,27 +15,26 @@ import { ProdutosTodosModule } from './pages/produtos-todos/produtos-todos.modul
 import { StoreModule } from '@ngrx/store';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MyCounterComponent } from './my-counter/my-counter.component';
 import { produtoReducer } from './reducers/store/produto-reducer';
 import { ProdutoStoreService } from './services/produto-store.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ProdutoEffects } from './reducers/store/produto.effects';
-import { counterReducer } from './counter.reducer';
 import { filterReducer } from './reducers/filter-reducer';
 import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
-
+// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 registerLocaleData(localePt);
 @NgModule({
   declarations: [
     AppComponent,
-    MyCounterComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+
+    // InfiniteScrollModule,
 
     ProdutosExclusivosModule,
     ProdutosFavoritosModule,
@@ -44,7 +43,7 @@ registerLocaleData(localePt);
 
     ProdutoDetalheModule,
 
-    StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer, count: counterReducer }),
+    StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer }),
     StoreDevtoolsModule.instrument(),
 
     EffectsModule.forRoot([ProdutoEffects]),
