@@ -22,6 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProdutoEffects } from './reducers/store/produto.effects';
 import { counterReducer } from './counter.reducer';
 import { filterReducer } from './reducers/filter-reducer';
+import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
 
 
 
@@ -40,6 +41,8 @@ registerLocaleData(localePt);
     ProdutosFavoritosModule,
     ProdutosPromocaoModule,
     ProdutosTodosModule,
+
+    ProdutoDetalheModule,
 
     StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer, count: counterReducer }),
     StoreDevtoolsModule.instrument(),

@@ -4,7 +4,7 @@
       <h1><strong>Empresa XPTO</strong> - Conheça todos os nossos produtos
         <span>Listagem de produtos - clique no produto desejado para saber mais</span></h1>
       <input #search type="search" [formControl]="filter" (input)="searchInputChange$.next(search.value)"
-        [value]="contents$ | async" placeholder="Buscar" class="busca">
+        [value]="contents$ | async" placeholder="Buscar por nome ou descrição" class="busca">
     </div>
 
     <div class="content-body">

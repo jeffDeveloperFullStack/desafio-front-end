@@ -55,8 +55,15 @@ export class ProdutosExclusivosComponent implements OnInit {
         this.filteredProdutos$ = combineLatest(this.produtos$, this.filter$).pipe(
           map(
             ([produtos, filterString]) => produtos.filter(
-              produto => produto.nome.toLowerCase().indexOf(Array.isArray(filterString) ? '' : filterString.toLowerCase()) !== -1
-            )
+              (produto: any) => {
+                const descricao = produto.decricaoCurta.toLowerCase().indexOf(
+                  Array.isArray(filterString) ? '' : filterString.toLowerCase()
+                ) !== -1;
+                const nome = produto.nome.toLowerCase().indexOf(
+                  Array.isArray(filterString) ? '' : filterString.toLowerCase()
+                ) !== -1;
+                return (descricao || nome);
+              })
           )
         );
       }

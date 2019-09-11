@@ -1,6 +1,11 @@
 {
   "name": "desafio-front-end",
   "version": "0.0.0",
+  "author": {
+    "email": "jeferson.oliveira.aoc@gmail.com",
+    "name": "Jeferson Oliveira dos Santos"
+  },
+  "description": "Desafio Frontend Finch",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -13,7 +13,7 @@
     <div class="content-body">
       <div *ngFor="let produto of filteredProdutos$ | async" class="card">
         <div class="image">
-          <img class="img-produto" [src]="produto.imagem">
+          <img [routerLink]="['/produto-detalhe/', produto.id]" class="img-produto" [src]="produto.imagem">
           <span [className]="(produto.promocao ? 'label' : (produto.exclusivo ? 'label-exclusivo' : 'label'))"
             class="label">{{ (produto.promocao ? 'Promoção' : (produto.exclusivo ? 'Exclusivo' : '')) }}</span>
         </div>
