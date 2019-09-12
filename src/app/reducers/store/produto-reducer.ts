@@ -20,3 +20,8 @@ export const produtoReducer: ActionReducer<any> = (
       return state;
   }
 };
+
+export function reduce(state: any[] = [], action: ProdutoAction) {
+  return produtoReducer(state, action);
+}
+

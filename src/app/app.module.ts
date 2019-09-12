@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { LOCALE_ID } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { ProdutosExclusivosModule } from './pages/produtos-exclusivos/produtos-exclusivos.module';
+import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
 import { ProdutosFavoritosModule } from './pages/produtos-favoritos/produtos-favoritos.module';
 import { ProdutosPromocaoModule } from './pages/produtos-promocao/produtos-promocao.module';
 import { ProdutosTodosModule } from './pages/produtos-todos/produtos-todos.module';
@@ -15,12 +16,11 @@ import { ProdutosTodosModule } from './pages/produtos-todos/produtos-todos.modul
 import { StoreModule } from '@ngrx/store';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// import { produtoReducer } from './reducers/store/produto-reducer';
 import { ProdutoStoreService } from './services/produto-store.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ProdutoEffects } from './reducers/store/produto.effects';
 import * as fromFilterReducer from './reducers/filter-reducer';
-import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
+import * as fromProdutoReducer from './reducers/store/produto-reducer';
 
 
 registerLocaleData(localePt);
@@ -40,8 +40,7 @@ registerLocaleData(localePt);
 
     ProdutoDetalheModule,
 
-    // StoreModule.forRoot({ filter: fromFilterReducer.reduce, produtos: produtoReducer }),
-    StoreModule.forRoot({ filter: fromFilterReducer.reduce }),
+    StoreModule.forRoot({ filter: fromFilterReducer.reduce, produtos: fromProdutoReducer.reduce }),
     StoreDevtoolsModule.instrument(),
 
     EffectsModule.forRoot([ProdutoEffects]),
