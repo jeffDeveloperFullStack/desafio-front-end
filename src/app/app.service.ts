@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AppService {
 
-  private endpoint = 'http://www.mocky.io/v2/5d3b57023000005500a2a0a6';
+  private endpoint = 'https://www.mocky.io/v2/5d3b57023000005500a2a0a6';
 
   constructor(private http: HttpClient) { }
 
