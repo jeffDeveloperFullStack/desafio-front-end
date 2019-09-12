@@ -1,6 +1,5 @@
-import { Action, ActionReducer } from '@ngrx/store';
+import { ActionReducer } from '@ngrx/store';
 import { ProdutoAction, ActionTypes } from './store/produto-actions';
-import { isEmpty } from 'rxjs/operators';
 
 export const filterReducer: ActionReducer<any> = (
   state: any[] = [], action: ProdutoAction) => {

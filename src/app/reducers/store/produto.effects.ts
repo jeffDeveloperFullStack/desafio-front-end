@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import * as taskActions from './produto-actions';
+import * as produtoActions from './produto-actions';
 import { AppService } from 'src/app/app.service';
-import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ProdutoEffects {
@@ -16,39 +16,19 @@ export class ProdutoEffects {
     private actions$: Actions
   ) { }
 
-  // @Effect()
-  // loadAction$: Observable<Action> = this.actions$
-  //   .pipe(
-  //     ofType(taskActions.ActionTypes.LOAD),
-  //     switchMap(() => this.api.loadProdutos()),
-  //     map((res: any) => new taskActions.LoadCompletedAction({ produtos: res.produtos })),
-  //     catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
-  //   );
-
-  @Effect()
-  loadProdutoExclusivoAction$: Observable<Action> = this.actions$
-    .pipe(
-      ofType(taskActions.ActionTypes.LOAD_PRODUTOS_EXCLUSIVOS),
-      switchMap(() => this.api.loadProdutosExclusivos()),
-      map(response => response.produtos.filter(produto => produto.exclusivo === true)),
-      map(res => new taskActions.LoadProdutosExclusivoCompletoAction({ produtos: res })),
-      catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
-    );
-
   @Effect()
   loadProdutosAction$: Observable<Action> = this.actions$
     .pipe(
-      ofType(taskActions.ActionTypes.LOAD_PRODUTOS),
+      ofType(produtoActions.ActionTypes.LOAD_PRODUTOS),
       switchMap(() => this.api.loadProdutos()),
-      map((res: any) => new taskActions.LoadProdutoCompletedAction({ produtos: res.produtos })),
-      catchError(() => of({ type: taskActions.ActionTypes.LOAD_ERROR }))
+      map((res: any) => new produtoActions.LoadProdutoCompletedAction({ produtos: res.produtos })),
+      catchError(() => of({ type: produtoActions.ActionTypes.LOAD_ERROR }))
     );
 
   @Effect() load$ = this.actions$
     .pipe(
-      ofType(taskActions.ActionTypes.SEARCH),
+      ofType(produtoActions.ActionTypes.SEARCH),
       map(action => action),
-      map(action => new taskActions.LoadActionSuccess({ filter: action }))
+      map(action => new produtoActions.LoadActionSuccess({ filter: action }))
     );
-
 }
