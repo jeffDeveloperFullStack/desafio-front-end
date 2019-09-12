@@ -14,3 +14,7 @@ export const filterReducer: ActionReducer<any> = (
       return state;
   }
 };
+
+export function reduce(state: any[] = [], action: ProdutoAction) {
+  return filterReducer(state, action);
+}

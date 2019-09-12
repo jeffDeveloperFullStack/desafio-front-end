@@ -15,11 +15,11 @@ import { ProdutosTodosModule } from './pages/produtos-todos/produtos-todos.modul
 import { StoreModule } from '@ngrx/store';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { produtoReducer } from './reducers/store/produto-reducer';
+// import { produtoReducer } from './reducers/store/produto-reducer';
 import { ProdutoStoreService } from './services/produto-store.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ProdutoEffects } from './reducers/store/produto.effects';
-import { filterReducer } from './reducers/filter-reducer';
+import * as fromFilterReducer from './reducers/filter-reducer';
 import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
 
 
@@ -40,8 +40,8 @@ registerLocaleData(localePt);
 
     ProdutoDetalheModule,
 
-    StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer }),
-    StoreModule.forRoot({ produtos: produtoReducer }),
+    // StoreModule.forRoot({ filter: fromFilterReducer.reduce, produtos: produtoReducer }),
+    StoreModule.forRoot({ filter: fromFilterReducer.reduce }),
     StoreDevtoolsModule.instrument(),
 
     EffectsModule.forRoot([ProdutoEffects]),
