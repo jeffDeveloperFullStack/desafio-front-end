@@ -1,27 +1,33 @@
-# DesafioFrontEnd
+# Desafio Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.4.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. npm v5.8.0+.
+2. node v10.15.2+.
+3. angular/cli
 
-## Code scaffolding
+## Instalando e rodando o projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. `npm install ou npm i`.
+2. `npm install -g @angular/cli`.
+3. `ng serve`
+
+Execute `ng serve`. Navegue para `http://localhost:4200/`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Execute `ng build` para criar o projeto. Os artefatos de construção serão armazenados no diretório `dist/`. Use o sinalizador `--prod` para uma construção de produção.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Execute o `ng test` para executar os testes de unidade via [Karma] (https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Execute `ng e2e` para executar os testes de ponta a ponta através do [Transferidor] (http://www.protractortest.org/).
 
-## Further help
+## Mais ajuda
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Para obter mais ajuda sobre a CLI angular, use `ng help` ou vá para o [README da CLI angular] (https://github.com/angular/angular-cli/blob/master/README.md).
