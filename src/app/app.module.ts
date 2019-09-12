@@ -19,9 +19,8 @@ import { produtoReducer } from './reducers/store/produto-reducer';
 import { ProdutoStoreService } from './services/produto-store.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ProdutoEffects } from './reducers/store/produto.effects';
-import { filterReducer } from './reducers/filter-reducer';
+// import { filterReducer } from './reducers/filter-reducer';
 import { ProdutoDetalheModule } from './pages/componentes/produto-detalhe/produto-detalhe.module';
-// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 registerLocaleData(localePt);
@@ -34,8 +33,6 @@ registerLocaleData(localePt);
     HttpClientModule,
     AppRoutingModule,
 
-    // InfiniteScrollModule,
-
     ProdutosExclusivosModule,
     ProdutosFavoritosModule,
     ProdutosPromocaoModule,
@@ -43,7 +40,8 @@ registerLocaleData(localePt);
 
     ProdutoDetalheModule,
 
-    StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer }),
+    // StoreModule.forRoot({ filter: filterReducer, produtos: produtoReducer }),
+    StoreModule.forRoot({ produtos: produtoReducer }),
     StoreDevtoolsModule.instrument(),
 
     EffectsModule.forRoot([ProdutoEffects]),
