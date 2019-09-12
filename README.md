@@ -8,6 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 2. node v10.15.2+.
 3. angular/cli
 
+## Extensão Redux DevTools
+https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+
 ## Instalando e rodando o projeto
 
 1. `npm install ou npm i`.
